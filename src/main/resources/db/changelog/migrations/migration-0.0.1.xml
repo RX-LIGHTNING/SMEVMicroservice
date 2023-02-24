@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet id="create-fine_request" author="R.Kuznetsov">
+        <createTable tableName="fine_request">
+            <column name="uuid" type="uuid">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="tax_payerid" type="text">
+                <constraints nullable="true"/>
+            </column>
+            <column name="vehicle_certificate" type="text">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-fine_response" author="R.Kuznetsov">
+        <createTable tableName="fine_response">
+            <column name="uuid" type="uuid">
+                <constraints unique="false"/>
+            </column>
+            <column name="accrued_amount" type="double">
+                <constraints nullable="false"/>
+            </column>
+            <column name="article" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fine_amount" type="double">
+                <constraints nullable="false"/>
+            </column>
+            <column name="resolution" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="resolution_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tax_payerid" type="text">
+                <constraints nullable="true"/>
+            </column>
+            <column name="vehicle_certificate" type="text">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-fine" author="R.Kuznetsov">
+        <createTable tableName="fine">
+            <column name="id" type="bigint">
+                <constraints unique="true"/>
+            </column>
+            <column name="accrued_amount" type="double">
+                <constraints nullable="false"/>
+            </column>
+            <column name="article" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fine_amount" type="double">
+                <constraints nullable="false"/>
+            </column>
+            <column name="resolution" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="resolution_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tax_payerid" type="text">
+                <constraints nullable="true"/>
+            </column>
+            <column name="vehicle_certificate" type="text">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
