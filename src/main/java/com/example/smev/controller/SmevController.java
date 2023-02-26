@@ -35,7 +35,7 @@ public class SmevController {
     }
 
     @PostMapping("/acknowledge")
-    public ResponseEntity<HttpStatus> acknowledge(@RequestBody List<FineResponse> fineResponse) {
-        return fineResponseService.deleteResponseFromQueue(fineResponse);
+    public ResponseEntity<HttpStatus> acknowledge(@RequestBody UUID uuid) {
+        return fineResponseService.deleteResponseFromQueue(uuid);
     }
 }

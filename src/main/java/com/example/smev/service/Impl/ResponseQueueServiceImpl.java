@@ -26,9 +26,9 @@ public class ResponseQueueServiceImpl implements ResponseQueueService {
     }
 
     @Override
-    public ResponseEntity<HttpStatus> deleteResponseFromQueue(List<FineResponse> fineResponse) {
-        fineResponse.forEach(i -> fineResponseRepo.deleteByUUID(i.getUuid()));
-        log.info("{} Deleted from ResponseQueue", fineResponse);
+    public ResponseEntity<HttpStatus> deleteResponseFromQueue(UUID uuid) {
+        fineResponseRepo.deleteByUUID(uuid);
+        log.info("{} Deleted from ResponseQueue", uuid);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
