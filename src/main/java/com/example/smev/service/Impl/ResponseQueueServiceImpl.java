@@ -22,7 +22,12 @@ public class ResponseQueueServiceImpl implements ResponseQueueService {
 
     public ResponseEntity<List<FineResponse>> getFineResponse(UUID uuid) {
         List<FineResponse> fineResponse = fineResponseRepo.findByUuid(uuid);
-        return new ResponseEntity<>(fineResponse, HttpStatus.OK);
+        if (!fineResponse.isEmpty()) {
+            return new ResponseEntity<>(fineResponse, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(fineResponse, HttpStatus.NO_CONTENT);
+        }
     }
 
     @Override
