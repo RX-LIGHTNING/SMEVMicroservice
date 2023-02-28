@@ -8,8 +8,8 @@ import java.util.UUID;
 
 public interface RequestQueueService {
 
-    // TODO: 21.02.23 Не возвращаем ResponseEntity в Service
-    ResponseEntity<HttpStatus> saveFineRequestToQueue(FineRequest fineRequest);
+
+    HttpStatus saveFineRequestToQueue(FineRequest fineRequest);
 
     FineRequest getFineFromQueue(UUID uuid);
 

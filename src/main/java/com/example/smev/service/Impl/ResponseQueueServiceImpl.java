@@ -20,20 +20,15 @@ public class ResponseQueueServiceImpl implements ResponseQueueService {
 
     private final FineResponseRepo fineResponseRepo;
 
-    public ResponseEntity<List<FineResponse>> getFineResponse(UUID uuid) {
+    public List<FineResponse> getFineResponse(UUID uuid) {
         List<FineResponse> fineResponse = fineResponseRepo.findByUuid(uuid);
-        if (!fineResponse.isEmpty()) {
-            return new ResponseEntity<>(fineResponse, HttpStatus.OK);
-        }
-        else {
-            return new ResponseEntity<>(fineResponse, HttpStatus.NO_CONTENT);
-        }
+            return fineResponse;
     }
 
     @Override
-    public ResponseEntity<HttpStatus> deleteResponseFromQueue(UUID uuid) {
+    public HttpStatus deleteResponseFromQueue(UUID uuid) {
         fineResponseRepo.deleteByUUID(uuid);
         log.info("{} Deleted from ResponseQueue", uuid);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return HttpStatus.OK;
     }
 }

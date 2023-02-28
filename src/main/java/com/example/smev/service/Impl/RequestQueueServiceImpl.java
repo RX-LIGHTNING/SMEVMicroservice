@@ -20,10 +20,10 @@ public class RequestQueueServiceImpl implements RequestQueueService {
     private final FineRequestRepo fineRequestRepo;
 
     @Override
-    public ResponseEntity<HttpStatus> saveFineRequestToQueue(FineRequest fineRequest) {
+    public HttpStatus saveFineRequestToQueue(FineRequest fineRequest) {
         log.info("Saving request to queue: {}", fineRequest);
         fineRequestRepo.save(fineRequest);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return HttpStatus.OK;
     }
 
     @Override

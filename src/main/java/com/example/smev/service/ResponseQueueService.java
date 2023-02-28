@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ResponseQueueService {
-    ResponseEntity<List<FineResponse>> getFineResponse(UUID uuid);
+    List<FineResponse> getFineResponse(UUID uuid);
 
-    ResponseEntity<HttpStatus> deleteResponseFromQueue(UUID uuid);
+    HttpStatus deleteResponseFromQueue(UUID uuid);
 }
