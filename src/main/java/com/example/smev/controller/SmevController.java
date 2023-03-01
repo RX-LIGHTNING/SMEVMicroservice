@@ -29,7 +29,7 @@ public class SmevController {
         return new ResponseEntity<>(fineResponseService.getFineResponse(uuid), HttpStatus.OK);
     }
 
-    @PostMapping("/acknowledge/{uuid}")
+    @DeleteMapping("/acknowledge/{uuid}")
     public ResponseEntity<HttpStatus> acknowledge(@PathVariable UUID uuid) {
         return new ResponseEntity<>(fineResponseService.deleteResponseFromQueue(uuid),HttpStatus.OK);
     }
