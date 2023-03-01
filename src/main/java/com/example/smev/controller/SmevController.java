@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,7 +22,7 @@ public class SmevController {
     private final ResponseQueueService fineResponseService;
 
     @PostMapping("/request")
-    public ResponseEntity<HttpStatus> requestFine(@RequestBody FineRequest fineRequest) {
+    public ResponseEntity<HttpStatus> requestFine(@Valid @RequestBody FineRequest fineRequest) {
         return new ResponseEntity<>(fineRequireService.saveFineRequestToQueue(fineRequest),HttpStatus.OK);
     }
     @GetMapping("/result/{uuid}")
