@@ -26,7 +26,7 @@ public class SmevApplication {
     @EventListener(ApplicationReadyEvent.class)
     public void startWorkerPool(){
         ScheduledThreadPoolExecutor workerPool = new ScheduledThreadPoolExecutor(1);
-        workerPool.scheduleWithFixedDelay(worker,0,250, TimeUnit.MILLISECONDS);
+        workerPool.scheduleWithFixedDelay(worker,0,150, TimeUnit.MILLISECONDS);
         log.info("Worker started");
     }
 }
