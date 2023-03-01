@@ -28,7 +28,7 @@ class ControllerTests {
     private final UUID uuid = UUID.randomUUID();
     @Test
     void RequestTest() throws Exception {
-        FineRequest fineRequest = FineRequest.builder().uuid(uuid).taxPayerID("123").build();
+        FineRequest fineRequest = FineRequest.builder().uuid(uuid).taxPayerID("1234567890").build();
 
         mockMvc.perform(post("/api/v1/fine/request")
                         .contentType(APPLICATION_JSON_UTF8)
