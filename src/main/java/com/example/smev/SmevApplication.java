@@ -23,10 +23,5 @@ public class SmevApplication {
     public static void main(String[] args) {
         SpringApplication.run(SmevApplication.class, args);
     }
-    @EventListener(ApplicationReadyEvent.class)
-    public void startWorkerPool(){
-        ScheduledThreadPoolExecutor workerPool = new ScheduledThreadPoolExecutor(1);
-        workerPool.scheduleWithFixedDelay(worker,0,150, TimeUnit.MILLISECONDS);
-        log.info("Worker started");
-    }
+
 }

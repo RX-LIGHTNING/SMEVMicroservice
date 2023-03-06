@@ -2,7 +2,6 @@ package com.example.smev.worker;
 
 import com.example.smev.dto.FineRequest;
 import com.example.smev.dto.FineResponse;
-import com.example.smev.exception.EntityNotFoundException;
 import com.example.smev.model.Fine;
 import com.example.smev.repository.FineRepository;
 import com.example.smev.repository.FineRequestRepo;
@@ -32,16 +31,26 @@ public class Worker implements Runnable {
 
     @Override
     @Transactional
+    @EventListener(ApplicationReadyEvent.class)
     public void run() {
-            fineRequestRepo.findAll().forEach(fineRequest -> {
-                log.info("Processing request {}", fineRequest);
-                List<FineResponse> fineResponses = getFineFromGISMP(fineRequest)
-                        .stream()
-                        .map(x -> FineMapper.fineResponseFromFine(x, fineRequest.getUuid()))
-                        .collect(toList());
-                fineResponseRepo.saveAll(fineResponses);
-                fineRequestRepo.delete(fineRequest);
-            });
+        try {
+            log.info("Worker started");
+            Thread.currentThread().setName("Worker");
+            while (true) {
+                fineRequestRepo.findAll().forEach(fineRequest -> {
+                    log.info("Processing request {}", fineRequest);
+                    List<FineResponse> fineResponses = getFineFromGISMP(fineRequest)
+                            .stream()
+                            .map(x -> FineMapper.fineResponseFromFine(x, fineRequest.getUuid()))
+                            .collect(toList());
+                    fineResponseRepo.saveAll(fineResponses);
+                    fineRequestRepo.delete(fineRequest);
+                });
+                Thread.sleep(250);
+            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public List<Fine> getFineFromGISMP(FineRequest fineRequest) {
