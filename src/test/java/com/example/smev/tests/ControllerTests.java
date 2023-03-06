@@ -13,7 +13,7 @@ import java.util.UUID;
 
 import static com.example.smev.utils.Mapper.mapToJson;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -28,7 +28,7 @@ class ControllerTests {
     private final UUID uuid = UUID.randomUUID();
     @Test
     void RequestTest() throws Exception {
-        FineRequest fineRequest = FineRequest.builder().uuid(uuid).taxPayerID("123").build();
+        FineRequest fineRequest = FineRequest.builder().uuid(uuid).taxPayerID("1234567890").build();
 
         mockMvc.perform(post("/api/v1/fine/request")
                         .contentType(APPLICATION_JSON_UTF8)
@@ -40,9 +40,8 @@ class ControllerTests {
 
     @Test
     void ResultTest() throws Exception{
-        mockMvc.perform(post("/api/v1/fine/result")
+        mockMvc.perform(get("/api/v1/fine/result/{uuid}",uuid)
                         .contentType(APPLICATION_JSON_UTF8)
-                        .content(mapToJson(uuid))
                 )
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -50,9 +49,8 @@ class ControllerTests {
 
     @Test
     void AcknowledgeTest() throws Exception{
-        mockMvc.perform(post("/api/v1/fine/acknowledge")
+        mockMvc.perform(delete("/api/v1/fine/acknowledge/{uuid}",uuid)
                         .contentType(APPLICATION_JSON_UTF8)
-                        .content(mapToJson(uuid))
                 )
                 .andDo(print())
                 .andExpect(status().isOk());
