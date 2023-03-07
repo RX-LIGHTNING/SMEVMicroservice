@@ -9,8 +9,6 @@ import com.example.smev.repository.FineResponseRepo;
 import com.example.smev.util.FineMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,26 +29,16 @@ public class Worker implements Runnable {
 
     @Override
     @Transactional
-    @EventListener(ApplicationReadyEvent.class)
     public void run() {
-        try {
-            log.info("Worker started");
-            Thread.currentThread().setName("Worker");
-            while (true) {
-                fineRequestRepo.findAll().forEach(fineRequest -> {
-                    log.info("Processing request {}", fineRequest);
-                    List<FineResponse> fineResponses = getFineFromGISMP(fineRequest)
-                            .stream()
-                            .map(x -> FineMapper.fineResponseFromFine(x, fineRequest.getUuid()))
-                            .collect(toList());
-                    fineResponseRepo.saveAll(fineResponses);
-                    fineRequestRepo.delete(fineRequest);
-                });
-                Thread.sleep(250);
-            }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        fineRequestRepo.findAll().forEach(fineRequest -> {
+            log.info("Processing request {}", fineRequest);
+            List<FineResponse> fineResponses = getFineFromGISMP(fineRequest)
+                    .stream()
+                    .map(x -> FineMapper.fineResponseFromFine(x, fineRequest.getUuid()))
+                    .collect(toList());
+            fineResponseRepo.saveAll(fineResponses);
+            fineRequestRepo.delete(fineRequest);
+        });
     }
 
     public List<Fine> getFineFromGISMP(FineRequest fineRequest) {
