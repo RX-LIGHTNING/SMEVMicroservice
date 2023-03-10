@@ -1,5 +1,6 @@
 package com.example.smev.controller;
 
+import com.example.smev.controller.openapi.SmevControllerAPI;
 import com.example.smev.dto.FineRequest;
 import com.example.smev.dto.FineResponse;
 import com.example.smev.service.RequestQueueService;
@@ -16,7 +17,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/fine/")
-public class SmevController {
+public class SmevController implements SmevControllerAPI {
 
     private final RequestQueueService fineRequireService;
     private final ResponseQueueService fineResponseService;
