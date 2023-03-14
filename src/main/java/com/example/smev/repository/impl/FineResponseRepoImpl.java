@@ -17,7 +17,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class FineResponseRepoImpl implements FineResponseRepo {
 
-    private static final String RESPONSE_FIND_BY_UUID = "SELECT * FROM fine_response";
+    private static final String RESPONSE_FIND_BY_UUID = "SELECT * FROM fine_response WHERE uuid = ?";
     private static final String RESPONSE_SAVE = "INSERT INTO fine_response (uuid,accrued_amount,article,fine_amount,resolution,resolution_date,tax_payerid,vehicle_certificate) VALUES (?,?,?,?,?,?,?,?)";
     private static final String RESPONSE_DELETE_BY_UUID = "DELETE FROM fine_response WHERE uuid = ?";
     private static final String RESPONSE_FIND_ALL = "SELECT * FROM fine_response";
@@ -35,7 +35,7 @@ public class FineResponseRepoImpl implements FineResponseRepo {
 
     @Override
     public List<FineResponse> findByUuid(UUID uuid) {
-        return jdbcTemplate.query(RESPONSE_FIND_BY_UUID, MAPPER);
+        return jdbcTemplate.query(RESPONSE_FIND_BY_UUID, MAPPER,uuid);
     }
 
     @Override

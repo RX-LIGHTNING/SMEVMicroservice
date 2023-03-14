@@ -21,8 +21,7 @@ public class ResponseQueueServiceImpl implements ResponseQueueService {
     private final FineResponseRepo fineResponseRepo;
 
     public List<FineResponse> getFineResponse(UUID uuid) {
-        List<FineResponse> fineResponse = fineResponseRepo.findByUuid(uuid);
-            return fineResponse;
+        return fineResponseRepo.findByUuid(uuid);
     }
 
     @Override
